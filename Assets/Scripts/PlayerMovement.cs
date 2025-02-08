@@ -14,6 +14,8 @@ public class MovementScript : MonoBehaviour {
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
 
+    [SerializeField] private Transform player;
+
     void Start() {
         //initialize character controller
         cc = GetComponent<CharacterController>();
@@ -82,6 +84,17 @@ public class MovementScript : MonoBehaviour {
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    //Used to detect if the player is colliding with the air current object
+    private void OnTriggerStay(Collider other)
+    {
+        //checks if the collider has the tag AirCurrent
+        if(other.tag == "AirCurrent")
+        {
+            
+            ySpeed += 0.4f;
         }
     }
 }

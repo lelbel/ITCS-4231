@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class FallingObstacle : MonoBehaviour
+public class AirCurrent : MonoBehaviour
 {
-
-    [SerializeField] private Transform obstacle;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +16,7 @@ public class FallingObstacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        obstacle.position -= new Vector3 (0f, .01f, 0f);
+        
     }
+    
 }
