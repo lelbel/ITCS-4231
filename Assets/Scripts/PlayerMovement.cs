@@ -92,6 +92,7 @@ public class MovementScript : MonoBehaviour {
 
     }
 
+    //  hide cursor if game window is focuse
     private void OnApplicationFocus(bool focus) {
     //  hide mouse cursor when window is focused
         if (focus) {
