@@ -84,7 +84,7 @@ public class MovementScript : MonoBehaviour {
 
         //  check if character is moving
         if (movementDirection != Vector3.zero) {
-            //make character rotate and face direction it is moving
+            //  make character rotate and face direction it is moving
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
@@ -94,7 +94,6 @@ public class MovementScript : MonoBehaviour {
 
     //  hide cursor if game window is focuse
     private void OnApplicationFocus(bool focus) {
-    //  hide mouse cursor when window is focused
         if (focus) {
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         }
@@ -114,6 +113,7 @@ public class MovementScript : MonoBehaviour {
             ySpeed += 0.4f;
         }
     }
+
 }
 
 /*
