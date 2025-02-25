@@ -1,15 +1,20 @@
-using System.Runtime.CompilerServices;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MovementScript : MonoBehaviour {
     //  public fields
-    public float speed;
+    public float moveSpeed;
     public float rotationSpeed;
     public float jumpSpeed;
     public float jumpButtonGracePeriod;
+    public float gravityScale;
 
+    //private fields
     private CharacterController cc;
+    private Vector3 moveDirection;
+    private Vector3 velocity;
+    private float magnitude;
     private float ySpeed;
     private float originalStepOffset;
     private float? lastGroundedTime;
@@ -25,22 +30,29 @@ public class MovementScript : MonoBehaviour {
     }
 
     void Update() {
+        //----------PLAYER MOVEMENT----------
         //  player input
         float horizontalMovement = Input.GetAxisRaw("Horizontal");
         float verticalMovement = Input.GetAxisRaw("Vertical");
 
-        //  create movement vector (determine movement)
-        Vector3 movementDirection = new Vector3(horizontalMovement, 0, verticalMovement);
+        //  create movement vector
+        moveDirection = new Vector3(horizontalMovement, 0, verticalMovement);
 
-        // normalize player movement (ensure moving diagonally is not faster than movement in other directions)
-        movementDirection.Normalize();
+        // normalize player movement
+        moveDirection.Normalize();
 
+
+        //----------PLAYER DIRECTION----------
         //  player direction sync with camera direction
-        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
+        moveDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * moveDirection;
 
+
+        //----------GRAVITY----------
         //  set up gravity
-        ySpeed += Physics.gravity.y * Time.deltaTime;
+        ySpeed += Physics.gravity.y * Time.deltaTime * gravityScale;
 
+
+        //----------JUMPING----------
         //  check last time grounded
         if (cc.isGrounded) {
             lastGroundedTime = Time.time;
@@ -74,24 +86,28 @@ public class MovementScript : MonoBehaviour {
             cc.stepOffset = 0;
         }
 
-        //  determine player magnitude
-        float magnitude = Mathf.Clamp01(movementDirection.magnitude) * speed;
 
-        Vector3 velocity = movementDirection * magnitude;
+        //----------MAGNITUDE AND VELOCITY----------
+        //  determine player magnitude
+        magnitude = Mathf.Clamp01(moveDirection.magnitude) * moveSpeed;
+
+        velocity = moveDirection * magnitude;
         velocity.y = ySpeed;
 
         cc.Move(velocity * Time.deltaTime);
 
         //  check if character is moving
-        if (movementDirection != Vector3.zero) {
+        if (moveDirection != Vector3.zero) {
             //  make character rotate and face direction it is moving
-            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
-
+        
     }
 
+
+    //----------HIDE CURSOR----------
     //  hide cursor if game window is focuse
     private void OnApplicationFocus(bool focus) {
         if (focus) {
@@ -103,13 +119,13 @@ public class MovementScript : MonoBehaviour {
         }
     }
 
+
+    //----------AIR CURRENT COLLISION----------
     //Used to detect if the player is colliding with the air current object
     private void OnTriggerStay(Collider other)
     {
         //checks if the collider has the tag AirCurrent
-        if(other.tag == "AirCurrent")
-        {
-            
+        if(other.CompareTag("AirCurrent")) {
             ySpeed += 0.4f;
         }
     }
