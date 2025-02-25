@@ -9,6 +9,8 @@ public class MovementScript : MonoBehaviour {
     public float jumpSpeed;
     public float jumpButtonGracePeriod;
     public float gravityScale;
+    public bool isJumping = false;  //  public for testing purposes
+    public bool isGliding = false; //  public for testing purposes
 
     //private fields
     private CharacterController cc;
@@ -19,6 +21,7 @@ public class MovementScript : MonoBehaviour {
     private float originalStepOffset;
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
+    
 
     [SerializeField]
     private Transform cameraTransform;
@@ -56,6 +59,7 @@ public class MovementScript : MonoBehaviour {
         //  check last time grounded
         if (cc.isGrounded) {
             lastGroundedTime = Time.time;
+            isJumping = false;
         }
 
         //  check last time jump button was pressed
@@ -74,6 +78,7 @@ public class MovementScript : MonoBehaviour {
             //  check if jumping within grace period
             if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod) {
                 ySpeed = jumpSpeed;
+                isJumping = true;
 
                 //reset nullable fields
                 jumpButtonPressedTime = null;

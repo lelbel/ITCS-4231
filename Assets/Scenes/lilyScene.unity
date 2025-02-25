@@ -260,10 +260,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee15705844585a4e9da94ec1a34704c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  moveSpeed: 12
   rotationSpeed: 720
-  jumpSpeed: 8
+  jumpSpeed: 20
   jumpButtonGracePeriod: 0.2
+  gravityScale: 4
+  isJumping: 0
+  isFloating: 0
   cameraTransform: {fileID: 933359458}
 --- !u!143 &267517233
 CharacterController:
@@ -662,7 +665,7 @@ Transform:
   m_GameObject: {fileID: 860214264}
   serializedVersion: 2
   m_LocalRotation: {x: 0.25482658, y: 0, z: 0, w: 0.9669868}
-  m_LocalPosition: {x: 0, y: 0.0000009536743, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0000038146973, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1466,7 +1469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605319461}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27232718, y: -0.0000000122328405, z: 0.0000000034621896, w: 0.96220475}
+  m_LocalRotation: {x: 0.2723272, y: 0.000000028731895, z: -0.000000008131821, w: 0.96220475}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1672,7 +1675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726299039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28978413, y: -8.778521e-10, z: 2.657922e-10, w: 0.95709205}
+  m_LocalRotation: {x: 0.28978416, y: 0.000000021392676, z: -0.0000000064771806, w: 0.95709205}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
