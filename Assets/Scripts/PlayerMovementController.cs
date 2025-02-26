@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour {
     //  public fields
-    public float moveSpeed;
+    public float walkSpeed;
+    public float glideSpeed;
     public float rotationSpeed;
     public float jumpSpeed;
     public float jumpButtonGracePeriod;
-    public float gravityScale;
-    public bool isJumping = false;  //  public for testing purposes
-    public bool isGliding = false; //  public for testing purposes
+    public float defaultGravityScale;
+    public float glidingGravityScale;
+    public float timeInAirBeforeGlide;
 
     //private fields
     private CharacterController cc;
     private Vector3 moveDirection;
     private Vector3 velocity;
     private float magnitude;
+    private float moveSpeed;
     private float ySpeed;
     private float originalStepOffset;
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
-    
+    private float gravityScale;
+    private bool isJumping = false;
+    private bool isGliding = false;
+    private float timeInAir;
+    private bool canGlide = false;
 
     [SerializeField]
     private Transform cameraTransform;
@@ -51,6 +57,15 @@ public class MovementScript : MonoBehaviour {
 
 
         //----------GRAVITY----------
+        //  determine which gravity value to scale with
+        if (isGliding == true) {
+            gravityScale = glidingGravityScale;
+        }
+
+        else {
+            gravityScale = defaultGravityScale;
+        }
+
         //  set up gravity
         ySpeed += Physics.gravity.y * Time.deltaTime * gravityScale;
 
@@ -60,6 +75,8 @@ public class MovementScript : MonoBehaviour {
         if (cc.isGrounded) {
             lastGroundedTime = Time.time;
             isJumping = false;
+            isGliding = false;
+            timeInAir = 0f;
         }
 
         //  check last time jump button was pressed
@@ -92,8 +109,49 @@ public class MovementScript : MonoBehaviour {
         }
 
 
+        //----------GLIDING----------
+        //  check if player is in air long enough to glide
+        if (timeInAir < timeInAirBeforeGlide) {
+            canGlide = false;
+        }
+
+        else {
+            canGlide = true;
+        }
+
+        //  take input for activating glide
+        if (isJumping == true && canGlide == true && Input.GetButtonDown("Jump")) {
+            isGliding = true;
+            isJumping = false;
+            ySpeed += Physics.gravity.y * Time.deltaTime * glidingGravityScale;
+        }
+
+        if (isGliding == true && Input.GetButtonDown("Cancel")) {
+            isGliding = false;
+        }
+
+        
+
+        //  check how long player has been in the air
+        if (!cc.isGrounded) {
+            timeInAir += Time.deltaTime;
+        }
+
+
+
         //----------MAGNITUDE AND VELOCITY----------
-        //  determine player magnitude
+        //  determine player magnitude and which scale to use
+        if (isGliding == true)
+        {
+            moveSpeed = glideSpeed;
+        }
+
+        else
+        {
+            moveSpeed = walkSpeed;
+        }
+
+        //  set up magnitude
         magnitude = Mathf.Clamp01(moveDirection.magnitude) * moveSpeed;
 
         velocity = moveDirection * magnitude;
