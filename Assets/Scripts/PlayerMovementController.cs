@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour {
     //  public fields
+    [Header("Player Movement")]
     public float walkSpeed;
     public float glideSpeed;
     public float rotationSpeed;
     public float jumpSpeed;
-    public float jumpButtonGracePeriod;
+    
+    [Header("Player Gravity")]
     public float defaultGravityScale;
     public float glidingGravityScale;
+
+    [Header("Player Action Timing")]
+    public float jumpButtonGracePeriod;
     public float timeInAirBeforeGlide;
+
+    [Header("Testing Variables")]
 
     //  private fields
     private CharacterController cc;
@@ -84,6 +91,8 @@ public class MovementScript : MonoBehaviour {
         velocity = moveDirection * magnitude;
         velocity.y = ySpeed;
 
+        velocityY = velocity.y;
+
         //  move with character controller
         cc.Move(velocity * Time.deltaTime);
 
@@ -91,7 +100,7 @@ public class MovementScript : MonoBehaviour {
         if (moveDirection != Vector3.zero) {
             PlayerRotation();
         }
-        
+
     }
 
     //----------JUMPING----------
@@ -100,23 +109,22 @@ public class MovementScript : MonoBehaviour {
         isJumping = false;
         isGliding = false;
         timeInAir = 0f;
+
+        //no gravity when on the ground
+        ySpeed = -0.5f;
     }
 
     private void PlayerJump() {
         jumpButtonPressedTime = Time.time;
 
         //  check if player is on the ground within grace period
-        if (Time.time - lastGroundedTime <= jumpButtonGracePeriod)
-        {
-            //no gravity when on the ground
-            ySpeed = -0.5f;
-
+        if (Time.time - lastGroundedTime <= jumpButtonGracePeriod) {
+            
             //  reset step offset while on ground
             cc.stepOffset = originalStepOffset;
 
             //  check if jumping within grace period
-            if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod)
-            {
+            if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod) {
                 ySpeed = jumpSpeed;
                 isJumping = true;
 
@@ -127,8 +135,7 @@ public class MovementScript : MonoBehaviour {
         }
 
         //  set step offset to 0 while in the air to stop player from pausing when climbing
-        else
-        {
+        else {
             cc.stepOffset = 0;
         }
     }
@@ -137,13 +144,11 @@ public class MovementScript : MonoBehaviour {
     //----------GLIDING----------
     //  check if player is able to glide
     public bool CanGlide() {
-        if (timeInAir < timeInAirBeforeGlide)
-        {
+        if (timeInAir < timeInAirBeforeGlide) {
             return false;
         }
 
-        else
-        {
+        else {
             return true;
         }
     }
@@ -191,8 +196,7 @@ public class MovementScript : MonoBehaviour {
 
     //----------AIR CURRENT COLLISION----------
     //Used to detect if the player is colliding with the air current object
-    private void OnTriggerStay(Collider other)
-    {
+    private void OnTriggerStay(Collider other) {
         //checks if the collider has the tag AirCurrent
         if(other.CompareTag("AirCurrent")) {
             ySpeed += 0.4f;
