@@ -91,8 +91,6 @@ public class MovementScript : MonoBehaviour {
         velocity = moveDirection * magnitude;
         velocity.y = ySpeed;
 
-        velocityY = velocity.y;
-
         //  move with character controller
         cc.Move(velocity * Time.deltaTime);
 
