@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour {
 
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetButtonDown("Menu")) {
             if (isPaused == true)
             {
                 Resume();
@@ -56,17 +56,5 @@ public class PauseMenu : MonoBehaviour {
 
     public void QuitGame() {
         Application.Quit();
-    }
-
-    //----------HIDE CURSOR----------
-    //  hide cursor if game window is focuse
-    private void OnApplicationFocus(bool focus) {
-        if (!isPaused) {
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        else {
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-        }
     }
 }
