@@ -41,8 +41,8 @@ public class MovementScript : MonoBehaviour {
         cc = GetComponent<CharacterController>();
         originalStepOffset = cc.stepOffset;
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+       //Cursor.visible = false;
+       // Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update() {

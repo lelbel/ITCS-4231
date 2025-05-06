@@ -14,13 +14,13 @@ public class PauseMenu : MonoBehaviour {
             if (isPaused == true)
             {
                 Resume();
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                //Cursor.visible = false;
+                //Cursor.lockState = CursorLockMode.Locked;
             }
 
             else {
                 Pause();
-                Cursor.visible = true;
+                //Cursor.visible = true;
             }
         }
     }
