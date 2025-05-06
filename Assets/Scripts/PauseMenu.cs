@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
+    public string menuSceneName;
 
 
     void Update() {
@@ -13,10 +14,13 @@ public class PauseMenu : MonoBehaviour {
             if (isPaused == true)
             {
                 Resume();
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
 
             else {
                 Pause();
+                Cursor.visible = true;
             }
         }
     }
@@ -43,7 +47,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void LoadMenu() {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene(menuSceneName);
 
         //  deactivate UI
         pauseMenuUI.SetActive(false);
@@ -55,6 +59,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void QuitGame() {
+        Debug.Log("Quitting game...");
         Application.Quit();
     }
 }

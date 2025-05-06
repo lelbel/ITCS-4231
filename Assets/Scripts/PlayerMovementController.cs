@@ -40,6 +40,9 @@ public class MovementScript : MonoBehaviour {
         //  initialize character controller
         cc = GetComponent<CharacterController>();
         originalStepOffset = cc.stepOffset;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update() {
@@ -200,5 +203,4 @@ WHAT WILL NEEDED TO BE ADDED/CHANGED WHEN ATTATCHING SCRIPT TO NEW PLAYER OBJECT
     - change camera focus
     - change what camera follows
     - rig height and radius depending on the model height
-
 */
