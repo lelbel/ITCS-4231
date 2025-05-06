@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
     private WaitForSeconds leafSpawnDelay;
     [SerializeField] private GameObject leafPrefab;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform spawnPoint1;
+    [SerializeField] private Transform spawnPoint2;
+    [SerializeField] private Transform spawnPoint3;
+    [SerializeField] private Transform spawnPoint4;
+    [SerializeField] private Transform spawnPoint5;
+    [SerializeField] private Transform spawnPoint6;
 
     private void Awake()
     {
@@ -43,5 +49,11 @@ public class GameManager : MonoBehaviour
     public void SpawnLeaf()
     {
         Instantiate(leafPrefab, spawnPoint.position, Quaternion.identity);
+        Instantiate(leafPrefab, spawnPoint1.position, Quaternion.identity);
+        Instantiate(leafPrefab, spawnPoint2.position, Quaternion.identity);
+        Instantiate(leafPrefab, spawnPoint3.position, Quaternion.identity);
+        Instantiate(leafPrefab, spawnPoint4.position, Quaternion.identity);
+        Instantiate(leafPrefab, spawnPoint5.position, Quaternion.identity);
+        Instantiate(leafPrefab, spawnPoint6.position, Quaternion.identity);
     }
 }
