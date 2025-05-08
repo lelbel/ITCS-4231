@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovementScript : MonoBehaviour {
     //  public fields
@@ -189,6 +190,14 @@ public class MovementScript : MonoBehaviour {
         if(other.CompareTag("AirCurrent")) {
             ySpeed += 0.4f;
         }
+    }
+
+     //----------Goal Scene Transition----------------------
+     private void OnTriggerEnter(Collider other){
+        if(other.CompareTag("LevelExit")){
+            SceneManager.LoadScene(2);
+            Debug.Log(SceneManager.GetActiveScene().name);
+        } 
     }
 
 }
