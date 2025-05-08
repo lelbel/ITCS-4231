@@ -10,6 +10,10 @@ public class MovementScript : MonoBehaviour {
     public float glideSpeed;
     public float rotationSpeed;
     public float jumpSpeed;
+
+    public GameObject modelMain;
+    public GameObject modelGlide;
+    private GameObject modelCurrent;
     
     [Header("Player Gravity")]
     public float defaultGravityScale;
@@ -42,11 +46,16 @@ public class MovementScript : MonoBehaviour {
         cc = GetComponent<CharacterController>();
         originalStepOffset = cc.stepOffset;
 
+        modelCurrent = Instantiate(modelMain, transform.position, transform.rotation) as GameObject;
+        modelCurrent.transform.parent = transform;
+
        //Cursor.visible = false;
        // Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update() {
+
+        ChangeModel();
         //  player input
         float horizontalMovement = Input.GetAxisRaw("Horizontal");
         float verticalMovement = Input.GetAxisRaw("Vertical");
@@ -199,6 +208,19 @@ public class MovementScript : MonoBehaviour {
             Debug.Log(SceneManager.GetActiveScene().name);
         } 
     }
+
+    public void ChangeModel(){
+        GameObject tModel = modelCurrent;
+        if(this.isGliding){
+            tModel = Instantiate(modelGlide, transform.position, transform.rotation) as GameObject;
+        }else{
+            tModel = Instantiate(modelMain, transform.position, transform.rotation) as GameObject;
+        }
+        Destroy(modelCurrent);
+        tModel.transform.parent = transform;
+        modelCurrent = tModel;
+    }
+
 
 }
 
