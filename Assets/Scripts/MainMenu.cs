@@ -2,30 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviour
+{
     public string gameSceneName;
-    
-    void Start() {
-        
-    }
+    public string menuSceneName;
+    public AudioMixer audioMixer;
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
-    public void Play() {
+    public void Play()
+    {
         Debug.Log("Playing game...");
         SceneManager.LoadScene(gameSceneName);
     }
 
-    public void Settings() {
+    public void Settings()
+    {
         Debug.Log("Loading settings...");
     }
 
-    public void QuitGame() {
+    public void QuitGame()
+    {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void LoadMenu() {
+        SceneManager.LoadScene(menuSceneName);
+
     }
 }
