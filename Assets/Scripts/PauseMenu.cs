@@ -2,26 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
     public string menuSceneName;
-
+    public AudioMixer audioMixer;
 
     void Update() {
         if (Input.GetButtonDown("Menu")) {
-            if (isPaused == true)
-            {
+            if (isPaused == true) {
                 Resume();
-                //Cursor.visible = false;
-                //Cursor.lockState = CursorLockMode.Locked;
             }
 
             else {
                 Pause();
-                //Cursor.visible = true;
             }
+        }
+
+        if (isPaused) {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        else {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -61,5 +68,10 @@ public class PauseMenu : MonoBehaviour {
     public void QuitGame() {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
     }
 }

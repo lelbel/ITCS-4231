@@ -49,8 +49,8 @@ public class MovementScript : MonoBehaviour {
         modelCurrent = Instantiate(modelMain, transform.position, transform.rotation) as GameObject;
         modelCurrent.transform.parent = transform;
 
-       //Cursor.visible = false;
-       // Cursor.lockState = CursorLockMode.Locked;
+       Cursor.visible = false;
+       Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update() {
