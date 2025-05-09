@@ -16,12 +16,4 @@ public class cinemachineManager : MonoBehaviour
         cam.m_XAxis.m_MaxSpeed = cameraXSpeed;
         cam.m_YAxis.m_MaxSpeed = cameraYSpeed;
     }
-
-    public void setXSensitivity(float xSens) {
-        cameraXSpeed = xSens;
-    }
-
-    public void setYSensitivity(float ySens) {
-        cameraYSpeed = ySens;
-    }
 }
