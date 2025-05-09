@@ -23,13 +23,19 @@ public class PauseMenu : MonoBehaviour {
                 //Cursor.visible = true;
             }
         }
+
+        if (isPaused) {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        else {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void Resume() {
-        //  lock mouse
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         //  deavtivate UI
         pauseMenuUI.SetActive(false);
 
@@ -41,10 +47,6 @@ public class PauseMenu : MonoBehaviour {
     }
 
     void Pause() {
-        // unlock mouse
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
         //  activate UI
         pauseMenuUI.SetActive(true);
 
