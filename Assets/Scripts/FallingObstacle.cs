@@ -7,6 +7,7 @@ public class FallingObstacle : MonoBehaviour
 
     [SerializeField] private Transform obstacle;
     private WaitForSeconds removeLeafObjectTime;
+    public float yoffset;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,8 @@ public class FallingObstacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        obstacle.position -= new Vector3 (0f, .01f, 0f);
+        yoffset = (1f * Time.deltaTime);
+        obstacle.position -= new Vector3 (0f, yoffset, 0f);
     }
 
     public IEnumerator RemoveLeafObjectTimer()

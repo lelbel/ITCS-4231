@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
             instance = this;
             SpawnLeaf();
             DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(spawnPoint);
+            DontDestroyOnLoad(spawnPoint1);
+            DontDestroyOnLoad(spawnPoint2);
+            DontDestroyOnLoad(spawnPoint3);
+            DontDestroyOnLoad(spawnPoint4);
+            DontDestroyOnLoad(spawnPoint5);
+            DontDestroyOnLoad(spawnPoint6);
         }
         else
         {
